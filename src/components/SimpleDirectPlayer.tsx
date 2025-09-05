@@ -61,7 +61,8 @@ const SimpleDirectPlayer: React.FC<SimpleDirectPlayerProps> = ({
       const finalFileName = fileName.endsWith('.mp4') ? fileName : fileName.replace(/\.[^/.]+$/, '.mp4');
       
       // Usar domínio correto baseado no ambiente
-      // SEMPRE usar o domínio do servidor Wowza
+      // SEMPRE usar domínio/IP do servidor Wowza, NUNCA o domínio da aplicação
+      const domain = window.location.hostname === 'localhost' ? 'stmv1.udicast.com' : '51.222.156.223';
       const domain = 'stmv1.udicast.com';
       
       return `https://${domain}:1443/play.php?login=${userLogin}&video=${folderName}/${finalFileName}`;

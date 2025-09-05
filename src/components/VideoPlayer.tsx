@@ -141,7 +141,8 @@ const StreamingPlayerManager: React.FC<StreamingPlayerManagerProps> = ({
         const folderName = pathParts[1];
         const fileName = pathParts[2];
         const finalFileName = fileName.endsWith('.mp4') ? fileName : fileName.replace(/\.[^/.]+$/, '.mp4');
-        const domain = window.location.hostname === 'localhost' ? 'stmv1.udicast.com' : 'samhost.wcore.com.br';
+        // SEMPRE usar domínio/IP do servidor Wowza, NUNCA o domínio da aplicação
+        const domain = window.location.hostname === 'localhost' ? 'stmv1.udicast.com' : '51.222.156.223';
         playerUrl = `https://${domain}:1443/play.php?login=${userLogin}&video=${folderName}/${finalFileName}`;
       } else {
         playerUrl = `${baseUrl}/api/players/iframe?stream=${userLogin}_live`;

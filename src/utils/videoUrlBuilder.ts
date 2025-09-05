@@ -71,8 +71,16 @@ export class VideoUrlBuilder {
    * Obtém o domínio baseado no ambiente
    */
   private static getDomain(): string {
-    // SEMPRE usar o domínio do servidor Wowza
-    return this.DEV_DOMAIN; // stmv1.udicast.com
+    // SEMPRE usar o domínio do servidor Wowza, NUNCA o domínio da aplicação
+    const isProduction = window.location.hostname !== 'localhost';
+    
+    if (isProduction) {
+      // Em produção, usar IP direto do Wowza
+      return '51.222.156.223';
+    } else {
+      // Em desenvolvimento, usar domínio do Wowza
+      return this.DEV_DOMAIN; // stmv1.udicast.com
+    }
   }
 
   /**
