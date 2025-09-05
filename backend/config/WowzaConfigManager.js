@@ -194,6 +194,7 @@ class WowzaConfigManager {
                         <EnablePlay>true</EnablePlay>
                         <EnableQuery>true</EnableQuery>
                         <IceCandidateIpAddresses>samhost.wcore.com.br,tcp,1935</IceCandidateIpAddresses>
+                        <IceCandidateIpAddresses>51.222.156.223,tcp,1935</IceCandidateIpAddresses>
                         <UDPBindAddress></UDPBindAddress>
                         <PreferredCodecsAudio>opus,vorbis,pcmu,pcma</PreferredCodecsAudio>
                         <PreferredCodecsVideo>vp8,h264</PreferredCodecsVideo>

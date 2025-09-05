@@ -22,13 +22,8 @@ class VideoURLBuilder {
     // Obter domínio do servidor Wowza
     async getWowzaDomain(serverId = null) {
         try {
-            // Verificar se estamos em produção
+            // SEMPRE usar domínio/IP do servidor Wowza, NUNCA o domínio da aplicação
             const isProduction = process.env.NODE_ENV === 'production';
-            
-            if (isProduction) {
-                // Em produção, sempre usar o domínio principal
-                return 'samhost.wcore.com.br';
-            }
             
             let query = 'SELECT dominio, ip FROM wowza_servers WHERE status = "ativo"';
             let params = [];
@@ -44,17 +39,23 @@ class VideoURLBuilder {
             
             if (rows.length > 0) {
                 const server = rows[0];
-                // Em desenvolvimento, usar domínio específico ou IP
-                return server.dominio || server.ip || 'stmv1.udicast.com';
+                // SEMPRE usar IP/domínio do servidor Wowza
+                if (isProduction) {
+                    // Em produção, usar IP direto do Wowza
+                    return server.ip || '51.222.156.223';
+                } else {
+                    // Em desenvolvimento, usar domínio do Wowza
+                    return server.dominio || server.ip || 'stmv1.udicast.com';
+                }
             }
             
-            // Fallback baseado no ambiente
-            return isProduction ? 'samhost.wcore.com.br' : 'stmv1.udicast.com';
+            // Fallback sempre para servidor Wowza
+            return isProduction ? '51.222.156.223' : 'stmv1.udicast.com';
         } catch (error) {
             console.error('Erro ao obter domínio do servidor:', error);
-            // Fallback baseado no ambiente
+            // Fallback sempre para servidor Wowza
             const isProduction = process.env.NODE_ENV === 'production';
-            return isProduction ? 'samhost.wcore.com.br' : 'stmv1.udicast.com';
+            return isProduction ? '51.222.156.223' : 'stmv1.udicast.com';
         }
     }
 

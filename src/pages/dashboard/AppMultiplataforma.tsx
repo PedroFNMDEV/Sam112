@@ -96,7 +96,9 @@ const AppMultiplataforma: React.FC = () => {
   });
 
   const userLogin = user?.usuario || (user?.email ? user.email.split('@')[0] : `user_${user?.id || 'usuario'}`);
-  const playerUrl = `http://samhost.wcore.com.br/player-app-multi-plataforma/${userLogin}`;
+  // SEMPRE usar domínio/IP do servidor Wowza, NUNCA o domínio da aplicação
+  const wowzaDomain = window.location.hostname === 'localhost' ? 'stmv1.udicast.com' : '51.222.156.223';
+  const playerUrl = `http://${wowzaDomain}/player-app-multi-plataforma/${userLogin}`;
 
   useEffect(() => {
     loadAppData();

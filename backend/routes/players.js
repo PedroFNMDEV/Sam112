@@ -409,6 +409,9 @@ router.get('/social', async (req, res) => {
     }
     
     const videoUrl = `http://samhost.wcore.com.br:1935/samhost/${stream}/playlist.m3u8`;
+    // SEMPRE usar IP/domínio do servidor Wowza
+    const wowzaHost = '51.222.156.223';
+    const videoUrl = `http://${wowzaHost}:1935/samhost/${stream}/playlist.m3u8`;
     
     const socialHTML = `
 <!DOCTYPE html>
